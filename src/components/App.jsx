@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 
 function App() {
-  const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState(["An item"]);
+  const [todo, setTodo] = useState(""); // what the user types in the input
+  const [todoItems, setTodoItems] = useState([]); // the todos in the list
 
+  // What happens on the Add btn click
   function handleClick() {
-    setTodos([...todos, todo]);
-    setTodo("");
+
+    // append todo to todos array
+    setTodoItems((prevItems) => {
+      return [...prevItems, todo];
+    }); 
+    
+    setTodo(""); // reset input
   }
 
   return (
@@ -20,7 +26,7 @@ function App() {
           value={todo} 
           onChange={(event) => {
             const value = event.target.value;
-            setTodo(value);
+            setTodo(value); // update the todo as the user types it
           }}
         />
         <button onClick={handleClick}>
@@ -30,7 +36,8 @@ function App() {
       <div>
         <ul>
           {
-            todos.map((todoItem, index) => {
+            // Display the todos from the array in a list
+            todoItems.map((todoItem, index) => {
               return <li key={index}>{todoItem}</li>
             })
           }
