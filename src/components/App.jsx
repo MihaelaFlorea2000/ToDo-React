@@ -6,7 +6,7 @@ function App() {
   const [todoItems, setTodoItems] = useState([]); // the todos in the list
 
   // What happens on the Add btn click
-  function handleClick() {
+  function addItem() {
 
     // append todo to todos array
     setTodoItems((prevItems) => {
@@ -14,6 +14,17 @@ function App() {
     }); 
 
     setTodo(""); // reset input
+  }
+
+  // What happens when you click on an item
+  function deleteItem(id) {
+
+    // remove item from the array
+    setTodoItems((prevItems) => {
+      return prevItems.filter((item, index) => {
+        return index !== id;
+      });
+    });
   }
 
   return (
@@ -30,7 +41,7 @@ function App() {
             setTodo(value); // update the todo as the user types it
           }}
         />
-        <button onClick={handleClick}>
+        <button onClick={addItem}>
           <span>Add</span>
         </button>
       </div>
@@ -39,7 +50,12 @@ function App() {
           {
             // Display the todos from the array in a list
             todoItems.map((todoItem, index) => {
-              return <ToDoItem key={index} text={todoItem}/>
+              return <ToDoItem 
+                key={index} 
+                id={index}
+                text={todoItem}
+                onChecked={deleteItem}
+              />
             })
           }
         </ul>
