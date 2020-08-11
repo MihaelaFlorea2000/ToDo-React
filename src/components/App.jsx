@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ToDoItem from "./ToDoItem";
 
 function App() {
   const [todo, setTodo] = useState(""); // what the user types in the input
@@ -11,7 +12,7 @@ function App() {
     setTodoItems((prevItems) => {
       return [...prevItems, todo];
     }); 
-    
+
     setTodo(""); // reset input
   }
 
@@ -38,7 +39,7 @@ function App() {
           {
             // Display the todos from the array in a list
             todoItems.map((todoItem, index) => {
-              return <li key={index}>{todoItem}</li>
+              return <ToDoItem key={index} text={todoItem}/>
             })
           }
         </ul>
